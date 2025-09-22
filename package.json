@@ -1,0 +1,22 @@
+{
+  "name": "nhl-score-card",
+  "version": "1.0.0",
+  "description": "A Home Assistant Lovelace card to display NHL scores",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.8",
+    "@rollup/plugin-node-resolve": "^15.3.1",
+    "@rollup/plugin-terser": "^0.4.4",
+    "rollup": "^4.52.0"
+  },
+  "dependencies": {
+    "lit": "^2.8.0"
+  },
+  "main": "rollup.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

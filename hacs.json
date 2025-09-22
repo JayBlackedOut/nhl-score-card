@@ -1,0 +1,7 @@
+{
+  "name": "NHL Score Card",
+  "content_in_root": false,
+  "render_readme": true,
+  "filename": "nhl-score-card.js",
+  "domains": ["frontend"]
+}
