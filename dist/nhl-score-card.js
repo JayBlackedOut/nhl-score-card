@@ -87,7 +87,7 @@ var et,st;class it extends _{constructor(){super(...arguments),this.renderOption
         <div class="status-label final-label">${t||"No game scheduled"}</div>
           <div class="teams">
             <div class="team-row">
-              <div class="left">
+              <div class="sched-left">
                 ${n?j`<img class="logo" src="${n}" alt="${o} logo" />`:j``}
                 <div class="meta-left">
                   <div class="team-name">${o}</div>
@@ -96,7 +96,7 @@ var et,st;class it extends _{constructor(){super(...arguments),this.renderOption
             </div>
 
             <div class="team-row">
-              <div class="left">
+              <div class="sched-left">
                 ${d?j`<img class="logo" src="${d}" alt="${a} logo" />`:j``}
                 <div class="meta-left">
                   <div class="team-name">${a}</div>
@@ -147,6 +147,13 @@ var et,st;class it extends _{constructor(){super(...arguments),this.renderOption
         display: flex;
         align-items: center;
         gap: 10px;
+        min-width: 0;
+      }
+
+      .sched-left {
+        display: flex;
+        align-items: center;
+        gap: 2px;
         min-width: 0;
       }
 
