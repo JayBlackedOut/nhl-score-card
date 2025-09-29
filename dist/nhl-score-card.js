@@ -135,6 +135,7 @@ var et,st;class it extends _{constructor(){super(...arguments),this.renderOption
         gap: 2px;
         margin-top: 20px;
       }
+
       .card.scheduled .teams {
         gap: 0px;
       }
@@ -167,6 +168,11 @@ var et,st;class it extends _{constructor(){super(...arguments),this.renderOption
 
       .team-name {
         font-size: 14px;
+        font-weight: 600;
+      }
+
+      .card.scheduled .team-name {
+        font-size: 18px;
         font-weight: 600;
       }
 

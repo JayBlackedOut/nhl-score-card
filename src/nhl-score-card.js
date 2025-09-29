@@ -190,6 +190,7 @@ class NhlScoreCard extends LitElement {
         gap: 2px;
         margin-top: 20px;
       }
+
       .card.scheduled .teams {
         gap: 0px;
       }
@@ -222,6 +223,11 @@ class NhlScoreCard extends LitElement {
 
       .team-name {
         font-size: 14px;
+        font-weight: 600;
+      }
+
+      .card.scheduled .team-name {
+        font-size: 18px;
         font-weight: 600;
       }
 
