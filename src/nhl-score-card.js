@@ -58,7 +58,7 @@ class NhlScoreCard extends LitElement {
     if (isLive) {
       return html`
         <ha-card class="card live">
-          <div class="status-label live-label">${a.current_period ? `${a.current_period}` : ""}${a.is_intermission ? `${a.is_intermission}` : ""} ${a.time_remaining ? `• ${a.time_remaining}` : ""}</div>
+          <div class="status-label live-label">${a.current_period ? `${a.current_period}${a.current_period === 1 ? "ST" : a.current_period === 2 ? "ND" : a.current_period === 3 ? "RD" : ""}` : ""}${a.is_intermission === "true" ? `${a.is_intermission}` : ""} ${a.time_remaining ? `• ${a.time_remaining}` : ""}</div>
 
           <div class="teams">
             <!-- AWAY row -->
@@ -154,7 +154,7 @@ class NhlScoreCard extends LitElement {
               </div>
             </div>
           </div>
-        ${broadcasts.length ? html`<div class="bottom broadcasts">${broadcasts.join(" • ")}</div>` : ""}
+        ${broadcasts.length ? html`<div class="bottom">${broadcasts.join(" • ")}</div>` : ""}
       </ha-card>
     `;
     }
@@ -190,7 +190,7 @@ class NhlScoreCard extends LitElement {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 6px 2px;
+        padding: 2px 2px;
       }
 
       .left {
@@ -201,8 +201,8 @@ class NhlScoreCard extends LitElement {
       }
 
       .logo {
-        width: 34px;
-        height: 34px;
+        width: 48px;
+        height: 48px;
         object-fit: contain;
       }
 
@@ -232,13 +232,11 @@ class NhlScoreCard extends LitElement {
       }
 
       .bottom {
-        margin-top: 8px;
+        margin-top: 4px;
         text-align: center;
-        font-size: 12px;
+        font-size: 10px;
         color: var(--secondary-text-color, #666);
       }
-
-      .broadcasts { margin-top: 4px; }
     `;
   }
 }
