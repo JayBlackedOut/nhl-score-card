@@ -137,7 +137,7 @@ class NhlScoreCard extends LitElement {
         <div class="status-label final-label">${nextDt || "No game scheduled"}</div>
           <div class="teams">
             <div class="team-row">
-              <div class="sched-left">
+              <div class="left">
                 ${away.logo ? html`<img class="logo" src="${away.logo}" alt="${away.name} logo" />` : html``}
                 <div class="meta-left">
                   <div class="team-name">${away.name}</div>
@@ -146,7 +146,7 @@ class NhlScoreCard extends LitElement {
             </div>
 
             <div class="team-row">
-              <div class="sched-left">
+              <div class="left">
                 ${home.logo ? html`<img class="logo" src="${home.logo}" alt="${home.name} logo" />` : html``}
                 <div class="meta-left">
                   <div class="team-name">${home.name}</div>
@@ -190,6 +190,9 @@ class NhlScoreCard extends LitElement {
         gap: 2px;
         margin-top: 20px;
       }
+      .card.scheduled .teams {
+        gap: 0px;
+      }
 
       .team-row {
         display: flex;
@@ -202,13 +205,6 @@ class NhlScoreCard extends LitElement {
         display: flex;
         align-items: center;
         gap: 10px;
-        min-width: 0;
-      }
-
-      .sched-left {
-        display: flex;
-        align-items: center;
-        gap: 2px;
         min-width: 0;
       }
 
