@@ -184,7 +184,12 @@ class NhlScoreCard extends LitElement {
       .live-label { background: #118010; }
       .final-label { background: #555; }
 
-      .teams { display: flex; flex-direction: column; gap: 6px; margin-top: 20px; }
+      .teams { 
+        display: flex; 
+        flex-direction: column;
+        gap: 2px;
+        margin-top: 20px;
+      }
 
       .team-row {
         display: flex;
@@ -201,8 +206,8 @@ class NhlScoreCard extends LitElement {
       }
 
       .logo {
-        width: 48px;
-        height: 48px;
+        width: 64px;
+        height: 64px;
         object-fit: contain;
       }
 
