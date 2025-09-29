@@ -58,7 +58,7 @@ class NhlScoreCard extends LitElement {
     if (isLive) {
       return html`
         <ha-card class="card live">
-          <div class="status-label live-label">LIVE</div>
+          <div class="status-label live-label">${a.current_period ? `${a.current_period}` : ""}${a.is_intermission ? `${a.is_intermission}` : ""} ${a.time_remaining ? `• ${a.time_remaining}` : ""}</div>
 
           <div class="teams">
             <!-- AWAY row -->
@@ -91,9 +91,6 @@ class NhlScoreCard extends LitElement {
           </div>
 
           <div class="bottom">
-            <div class="period">
-              ${a.current_period ? `Period ${a.current_period}` : ""} ${a.time_remaining ? `• ${a.time_remaining}` : ""}
-            </div>
             ${broadcasts.length ? html`<div class="broadcasts">${broadcasts.join(" • ")}</div>` : ""}
           </div>
         </ha-card>
@@ -134,22 +131,30 @@ class NhlScoreCard extends LitElement {
 
     // scheduled / upcoming
     if (isScheduled) {
-    const nextDt = [a.next_game_date, a.next_game_time].filter(Boolean).join(" ");
+    const nextDt = [a.next_game_date, a.next_game_time].filter(Boolean).join(", ");
     return html`
       <ha-card class="card scheduled">
-        <div class="scheduled-logos">
-          ${away.logo ? html`<img class="sched-logo" src="${away.logo}" alt="${away.name} logo" />` : html``}
-          <div class="vs">vs</div>
-          ${home.logo ? html`<img class="sched-logo" src="${home.logo}" alt="${home.name} logo" />` : html``}
-        </div>
+        <div class="status-label final-label">${nextDt || "No game scheduled"}</div>
+          <div class="teams">
+            <div class="team-row">
+              <div class="left">
+                ${away.logo ? html`<img class="logo" src="${away.logo}" alt="${away.name} logo" />` : html``}
+                <div class="meta-left">
+                  <div class="team-name">${away.name}</div>
+                </div>
+              </div>
+            </div>
 
-        <div class="scheduled-names">
-          <div class="sched-name">${away.name}</div>
-          <div class="sched-name">${home.name}</div>
-        </div>
-
-        <div class="scheduled-dt">${nextDt || "No game scheduled"}</div>
-        ${broadcasts.length ? html`<div class="broadcasts">${broadcasts.join(" • ")}</div>` : ""}
+            <div class="team-row">
+              <div class="left">
+                ${home.logo ? html`<img class="logo" src="${home.logo}" alt="${home.name} logo" />` : html``}
+                <div class="meta-left">
+                  <div class="team-name">${home.name}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ${broadcasts.length ? html`<div class="bottom broadcasts">${broadcasts.join(" • ")}</div>` : ""}
       </ha-card>
     `;
     }
@@ -176,7 +181,7 @@ class NhlScoreCard extends LitElement {
         border-radius: 4px;
         color: white;
       }
-      .live-label { background: #d32f2f; }
+      .live-label { background: #118010; }
       .final-label { background: #555; }
 
       .teams { display: flex; flex-direction: column; gap: 6px; margin-top: 20px; }
@@ -222,39 +227,18 @@ class NhlScoreCard extends LitElement {
         font-weight: 700;
         line-height: 1;
         color: var(--primary-text-color, #111);
-        width: 70px;          /* added padding */
+        width: 70px;
         text-align: right;
       }
 
       .bottom {
         margin-top: 8px;
-        text-align: left;     /* align left */
+        text-align: center;
         font-size: 12px;
         color: var(--secondary-text-color, #666);
       }
 
       .broadcasts { margin-top: 4px; }
-
-      .scheduled-logos {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 18px;
-        margin-bottom: 6px;
-      }
-
-      .sched-logo { width: 48px; height: 48px; object-fit: contain; }
-      .vs { font-weight: 600; }
-
-      .scheduled-names {
-        display: flex;
-        justify-content: center;
-        gap: 40px;
-        margin-bottom: 6px;
-      }
-
-      .sched-name { font-size: 13px; font-weight: 500; }
-      .scheduled-dt { text-align: center; font-size: 13px; }
     `;
   }
 }
