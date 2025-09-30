@@ -31,18 +31,21 @@ class NhlScoreCard extends LitElement {
 
     const st = String(stateObj.state || "").toUpperCase();
     const a = stateObj.attributes || {};
+    const isDark = this.hass.themes?.darkMode;
 
     const away = {
       name: a.away_name || "Away",
-      logo: a.away_logo || null,
+      logo: isDark ? (a.away_logo_dark || a.away_logo) : (a.away_logo || null),
       score: a.away_score ?? "-",
       sog: a.away_sog ?? "-",
+      record: a.away_record || "",
     };
     const home = {
       name: a.home_name || "Home",
-      logo: a.home_logo || null,
+      logo: isDark ? (a.home_logo_dark || a.home_logo) : (a.home_logo || null),
       score: a.home_score ?? "-",
       sog: a.home_sog ?? "-",
+      record: a.home_record || "",
     };
 
     const broadcasts = []
@@ -58,7 +61,19 @@ class NhlScoreCard extends LitElement {
     if (isLive) {
       return html`
         <ha-card class="card live">
-          <div class="status-label live-label">${a.current_period ? `${a.current_period}${a.current_period === 1 ? "ST" : a.current_period === 2 ? "ND" : a.current_period === 3 ? "RD" : ""}` : ""}${a.is_intermission === "true" ? `${a.is_intermission}` : ""} ${a.time_remaining ? `• ${a.time_remaining}` : ""}</div>
+          <div class="status-label live-label">
+            ${a.current_period 
+              ? (a.current_period === 1 
+                ? "1ST" 
+                : a.current_period === 2 
+                  ? "2ND" 
+                  : a.current_period === 3 
+                    ? "3RD" 
+                    : a.current_period_type) 
+              : ""} 
+            ${a.is_intermission === "true" ? " INT" : ""} 
+            ${a.time_remaining ? `• ${a.time_remaining}` : ""}
+          </div>
 
           <div class="teams">
             <!-- AWAY row -->
@@ -131,16 +146,17 @@ class NhlScoreCard extends LitElement {
 
     // scheduled / upcoming
     if (isScheduled) {
-    const nextDt = [a.next_game_date, a.next_game_time].filter(Boolean).join(", ");
+    const nextDt = st;
     return html`
       <ha-card class="card scheduled">
-        <div class="status-label final-label">${nextDt || "No game scheduled"}</div>
+        <div class="status-label final-label">${nextDt || "NO GAME SCHEDULED"}</div>
           <div class="teams">
             <div class="team-row">
               <div class="left">
                 ${away.logo ? html`<img class="logo" src="${away.logo}" alt="${away.name} logo" />` : html``}
                 <div class="meta-left">
                   <div class="team-name">${away.name}</div>
+                  <div class="team-sub">(${away.record})</div>
                 </div>
               </div>
             </div>
@@ -150,6 +166,7 @@ class NhlScoreCard extends LitElement {
                 ${home.logo ? html`<img class="logo" src="${home.logo}" alt="${home.name} logo" />` : html``}
                 <div class="meta-left">
                   <div class="team-name">${home.name}</div>
+                  <div class="team-sub">(${home.record})</div>
                 </div>
               </div>
             </div>
@@ -191,10 +208,6 @@ class NhlScoreCard extends LitElement {
         margin-top: 20px;
       }
 
-      .card.scheduled .teams {
-        gap: 0px;
-      }
-
       .team-row {
         display: flex;
         align-items: center;
@@ -223,11 +236,6 @@ class NhlScoreCard extends LitElement {
 
       .team-name {
         font-size: 14px;
-        font-weight: 600;
-      }
-
-      .card.scheduled .team-name {
-        font-size: 18px;
         font-weight: 600;
       }
 
