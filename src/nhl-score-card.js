@@ -11,7 +11,7 @@ class NhlScoreCard extends LitElement {
 
   setConfig(config) {
     if (!config || !config.entity) {
-      throw new Error("You must define an entity (e.g. sensor.nhl_mtl).");
+      throw new Error("You must define an entity.");
     }
     this.config = config;
   }
@@ -199,7 +199,7 @@ class NhlScoreCard extends LitElement {
         color: white;
       }
       .live-label { background: #118010; }
-      .final-label { background: #EEE; }
+      .final-label { background: #555; }
 
       .teams { 
         display: flex; 
@@ -236,7 +236,7 @@ class NhlScoreCard extends LitElement {
 
       .team-name {
         font-size: 14px;
-        font-weight: 600;
+        font-weight: 400;
       }
 
       .team-sub {
