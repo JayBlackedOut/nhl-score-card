@@ -71,7 +71,7 @@ class NhlScoreCard extends LitElement {
                     ? "3RD" 
                     : a.current_period_type) 
               : ""} 
-            ${a.is_intermission === "true" ? " INT" : ""} 
+            ${a.is_intermission == "true" ? " INT" : ""} 
             ${a.time_remaining ? `• ${a.time_remaining}` : ""}
           </div>
 
