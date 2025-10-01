@@ -24,7 +24,7 @@ var et,st;class it extends _{constructor(){super(...arguments),this.renderOption
         <ha-card class="card live">
           <div class="status-label live-label">
             ${i.current_period?1===i.current_period?"1ST":2===i.current_period?"2ND":3===i.current_period?"3RD":i.current_period_type:""} 
-            ${"true"==i.is_intermission?" INT":""} 
+            ${i.is_intermission?" INT":""} 
             ${i.time_remaining?`• ${i.time_remaining}`:""}
           </div>
 
