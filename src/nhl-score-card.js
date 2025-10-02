@@ -61,7 +61,7 @@ class NhlScoreCard extends LitElement {
     if (isLive) {
       return html`
         <ha-card class="card live">
-          <div class="status-label live-label">
+          <div class="status-label ${a.is_intermission ? "intermission-label" : "live-label"}">
             ${a.current_period 
               ? (a.current_period === 1 
                 ? "1ST" 
@@ -199,6 +199,7 @@ class NhlScoreCard extends LitElement {
         color: white;
       }
       .live-label { background: #118010; }
+      .intermission-label { background: #aa5500; }
       .final-label { background: #555; }
 
       .teams { 
