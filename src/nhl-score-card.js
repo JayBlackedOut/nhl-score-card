@@ -199,7 +199,7 @@ class NhlScoreCard extends LitElement {
         color: white;
       }
       .live-label { background: #118010; }
-      .intermission-label { background: #aa5500; }
+      .intermission-label { background: #90ca8fff; }
       .final-label { background: #555; }
 
       .teams { 
