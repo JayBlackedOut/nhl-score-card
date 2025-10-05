@@ -60,7 +60,7 @@ var et,st;class it extends _{constructor(){super(...arguments),this.renderOption
         </ha-card>
       `;if(m)return j`
         <ha-card class="card final">
-          <div class="status-label final-label">FINAL${"REG"===i.current_period_type?"":`"/"${i.current_period_type}`}</div>
+          <div class="status-label final-label">FINAL${"REG"===i.current_period_type?"":`/${i.current_period_type}`}</div>
 
           <div class="teams">
             <div class="team-row">
@@ -133,7 +133,7 @@ var et,st;class it extends _{constructor(){super(...arguments),this.renderOption
         color: white;
       }
       .live-label { background: #118010; }
-      .intermission-label { background: #3d3dff; }
+      .intermission-label { background: #4474a0; }
       .final-label { background: #555; }
 
       .teams { 
