@@ -146,7 +146,7 @@ class NhlScoreCard extends LitElement {
 
     // scheduled / upcoming
     if (isScheduled) {
-    const nextDt = st;
+    const nextDt = st === "PRE" ? "PRE-GAME" : st;
     return html`
       <ha-card class="card scheduled">
         <div class="status-label final-label">${nextDt || "NO GAME SCHEDULED"}</div>
