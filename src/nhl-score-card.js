@@ -20,6 +20,43 @@ class NhlScoreCard extends LitElement {
     return 3;
   }
 
+  static getConfigForm() {
+    return {
+      schema: [
+        {
+          name: "entity",
+          required: true,
+          selector: {
+            entity: {
+              domain: "sensor",
+            },
+          },
+        },
+      ],
+      computeLabel: (schema) => {
+        if (schema.name === "entity") {
+          return "NHL Sensor Entity";
+        }
+        return undefined;
+      },
+      computeHelper: (schema) => {
+        if (schema.name === "entity") {
+          return "Select the NHL team sensor entity to display";
+        }
+        return undefined;
+      },
+      assertConfig: (config) => {
+        if (!config.entity) {
+          throw new Error("entity is required");
+        }
+      },
+    };
+  }
+
+  static getStubConfig() {
+    return {};
+  }
+
   render() {
     if (!this.hass || !this.config) return html``;
 
@@ -265,3 +302,13 @@ class NhlScoreCard extends LitElement {
 }
 
 customElements.define("nhl-score-card", NhlScoreCard);
+
+window.customCards = window.customCards || [];
+window.customCards.push({
+  type: "nhl-score-card",
+  name: "NHL Score Card",
+  preview: false,
+  description: "Display live NHL game scores and information. For use with the NHL API integration or any sensor providing similar attributes.",
+  documentationURL:
+    "https://github.com/jayblackedout/nhl-score-card",
+});
