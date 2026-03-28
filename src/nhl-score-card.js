@@ -10,10 +10,7 @@ class NhlScoreCard extends LitElement {
   }
 
   setConfig(config) {
-    if (!config || !config.entity) {
-      throw new Error("You must define an entity.");
-    }
-    this.config = config;
+    this.config = config || {};
   }
 
   getCardSize() {
