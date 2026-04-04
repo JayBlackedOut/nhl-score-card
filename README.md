@@ -14,3 +14,24 @@ resources:
   - url: /hacsfiles/nhl-score-card/nhl-score-card.js
     type: module
 ```
+
+## Examples
+Light/dark mode follows the mode set in Home Assistant's settings.
+
+### Game is scheduled:
+
+![Game is scheduled in light mode](scheduled_game_light.png "Light mode")
+
+![Game is scheduled in dark mode](scheduled_game_dark.png "Dark mode")
+
+### Game is live:
+
+![Game is live in light mode](live_game_light.png "Light mode")
+
+![Game is live in dark mode](live_game_dark.png "Dark mode")
+
+### Game has ended:
+
+![Game is final in light mode](final_game_light.png "Light mode")
+
+![Game is final in dark mode](final_game_dark.png "Dark mode")
