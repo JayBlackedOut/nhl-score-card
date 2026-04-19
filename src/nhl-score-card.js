@@ -67,6 +67,30 @@ class NhlScoreCard extends LitElement {
     const a = stateObj.attributes || {};
     const isDark = this.hass.themes?.darkMode;
 
+    const isPlayoffs = a.game_type === 3;
+
+    let seriesText = "";
+    let seriesMeta = "";
+
+    if (isPlayoffs) {
+      const top = a.series_top_seed;
+      const bottom = a.series_bottom_seed;
+      const topWins = a.series_top_seed_wins ?? 0;
+      const bottomWins = a.series_bottom_seed_wins ?? 0;
+
+      // Series status text
+      if (topWins === bottomWins) {
+        seriesText = `TIED ${topWins}-${bottomWins}`;
+      } else if (topWins > bottomWins) {
+        seriesText = `${top} ${topWins}-${bottomWins}`;
+      } else {
+        seriesText = `${bottom} ${bottomWins}-${topWins}`;
+      }
+
+      // Round + game
+      seriesMeta = `${a.series_abbrev} • GM${a.series_game}`;
+    }
+
     const away = {
       name: a.away_name || "Away",
       logo: isDark ? (a.away_logo_dark || a.away_logo) : (a.away_logo || null),
@@ -108,7 +132,13 @@ class NhlScoreCard extends LitElement {
             ${a.is_intermission ? " INT" : ""} 
             ${a.time_remaining ? `• ${a.time_remaining}` : ""}
           </div>
-
+          ${isPlayoffs
+            ? html`
+                <div class="series-top-right">
+                  ${seriesMeta}${seriesText ? html` • ${seriesText}` : ""}
+                </div>
+              `
+            : ""}
           <div class="teams">
             <!-- AWAY row -->
             <div class="team-row">
@@ -150,7 +180,13 @@ class NhlScoreCard extends LitElement {
       return html`
         <ha-card class="card final">
           <div class="status-label final-label">FINAL${a.current_period_type === "REG" ? "" : `/${a.current_period_type}`}</div>
-
+          ${isPlayoffs
+            ? html`
+                <div class="series-top-right">
+                  ${seriesMeta}${seriesText ? html` • ${seriesText}` : ""}
+                </div>
+              `
+            : ""}
           <div class="teams">
             <div class="team-row">
               <div class="left">
@@ -184,6 +220,13 @@ class NhlScoreCard extends LitElement {
     return html`
       <ha-card class="card scheduled">
         <div class="status-label final-label">${nextDt || "NO GAME SCHEDULED"}</div>
+        ${isPlayoffs
+          ? html`
+              <div class="series-top-right">
+                ${seriesMeta}${seriesText ? html` • ${seriesText}` : ""}
+              </div>
+            `
+          : ""}
           <div class="teams">
             <div class="team-row">
               <div class="left">
@@ -293,6 +336,16 @@ class NhlScoreCard extends LitElement {
         text-align: center;
         font-size: 10px;
         color: var(--secondary-text-color, #666);
+      }
+      
+      .series-top-right {
+        position: absolute;
+        top: 6px;
+        right: 10px;
+        font-size: 12px; /* matches status-label */
+        font-weight: 700;
+        color: var(--secondary-text-color);
+        opacity: 0.9;
       }
     `;
   }
